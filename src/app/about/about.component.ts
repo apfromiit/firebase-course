@@ -40,7 +40,26 @@ export class AboutComponent {
         return newData;
     }
 
+    downloadDoc() {
+        this.db.doc("/courses/6ACHJjEFVLXoHxziY3s1").get().subscribe(
+            snap => {
+                console.log(snap.id);
+                console.log(snap.data());
+            }
+        )
+    }
 
+    downloadCollection() {
+        this.db.collection("courses",
+            ref => ref.where("seqNo", "<=", 5).orderBy("seqNo")).get().subscribe(
+            snaps => {
+                snaps.forEach(snap => {
+                    console.log(snap.id);
+                    console.log(snap.data());
+                });
+            }
+        )
+    }
 }
 
 
